@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+<!-- Enable AspectJ style of Spring AOP -->
+<aop:aspectj-autoproxy />
+
+<!-- Configure Employee Bean and initialize it -->
+<bean name="user" class="com.demo.model.User">
+	<property name="name" value="Dummy Name"></property>
+</bean>
+
+<!-- Configure EmployeeService bean -->
+<bean name="userService" class="com.demo.service.UserService">
+	<property name="user" ref="user"></property>
+</bean>
+
+<!-- Configure Aspect Beans, without this Aspects advices wont execute -->
+<bean name="userAspect" class="com.demo.aspect.UserAspect" />
+<bean name="userAfterAspect" class="com.demo.aspect.UserAfterAspect" />
+
+<!-- bean autowire="byName" class="com.demo.lc.Triangle" id="triangle"></bean>
+  
+<bean class="com.demo.lc.Point" id="pointA">
+   <property name="x" value="0"></property>
+   <property name="y" value="0"></property>
+</bean>
+  
+<bean class="com.demo.lc.Point" id="pointB">
+   <property name="x" value="-20"></property>
+   <property name="y" value="0"></property>
+</bean>
+  
+<bean class="com.demo.lc.Point" id="pointC">
+   <property name="x" value="${pointC.x}"></property>
+   <property name="y" value="${pointC.y}"></property>
+</bean>
+  
+<bean class="com.demo.lc.BeanFactoryPPDemo"></bean> -->
+
+
+<bean id="propertyService" class="com.demo.lc.PropertyService">
+		<property name="lastName" value="${user.lastName}"></property>
+	</bean>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>user.properties</value>
+		</property>
+	</bean> 
+
+<!-- <bean name="employeeAspectPointcut" class="com.journaldev.spring.aspect.EmployeeAspectPointcut" />
+<bean name="employeeAspectJoinPoint" class="com.journaldev.spring.aspect.EmployeeAspectJoinPoint" />
+<bean name="employeeAfterAspect" class="com.journaldev.spring.aspect.EmployeeAfterAspect" />
+<bean name="employeeAroundAspect" class="com.journaldev.spring.aspect.EmployeeAroundAspect" />
+<bean name="employeeAnnotationAspect" class="com.journaldev.spring.aspect.EmployeeAnnotationAspect" />
+<bean name="employeeXMLConfigAspect" class="com.journaldev.spring.aspect.EmployeeXMLConfigAspect" /> -->
+
+<!-- Spring AOP XML Configuration -->
+<!-- <aop:config>
+	<aop:aspect ref="employeeXMLConfigAspect" id="employeeXMLConfigAspectID" order="1">
+		<aop:pointcut expression="execution(* com.journaldev.spring.model.Employee.getName())" id="getNamePointcut"/>
+		<aop:around method="employeeAroundAdvice" pointcut-ref="getNamePointcut" arg-names="proceedingJoinPoint"/>
+	</aop:aspect>
+</aop:config> -->
+</beans>
