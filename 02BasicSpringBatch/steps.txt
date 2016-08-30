@@ -1,0 +1,6 @@
+1. Configure POM to include spring batch dependencies
+2. Job related configuration in xml file
+3. Configure Job -> step -> reader, processor, writer
+4. CSV reader, XML Writer -- built In
+5. Create csv.. read via a mapper
+6. Create JAXB annotated class to write xml
